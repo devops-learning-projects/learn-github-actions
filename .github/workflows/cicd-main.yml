@@ -1,7 +1,9 @@
 # CI --> Continuos integration, CD ---> Continuos Delivery
-name: CICD
+name: CICD - Main
 on:
   push:
+    branches:
+      - main
   workflow_dispatch:
 jobs:
   build:
