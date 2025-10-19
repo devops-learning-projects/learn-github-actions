@@ -1,5 +1,5 @@
 # CI --> Continuos integration, CD ---> Continuos Delivery
-name: CI
+name: CICD
 on:
   push:
   workflow_dispatch:
@@ -12,30 +12,35 @@ jobs:
         run: echo Hello, world!
   test:
     runs-on: self-hosted
+    needs: build
     steps:
       - uses: actions/checkout@v4
       - name: Run a one-line script
         run: echo Hello, world!
   dev-deploy:
     runs-on: self-hosted
+    needs: test
     steps:
       - uses: actions/checkout@v4
       - name: Run a one-line script
         run: echo Hello, world!
   qa-deploy:
     runs-on: self-hosted
+    needs: dev-deploy
     steps:
       - uses: actions/checkout@v4
       - name: Run a one-line script
         run: echo Hello, world!
   uat-deploy:
     runs-on: self-hosted
+    needs: qa-deploy
     steps:
       - uses: actions/checkout@v4
       - name: Run a one-line script
         run: echo Hello, world!
   prod-deploy:
     runs-on: self-hosted
+    needs: uat-deploy
     steps:
       - uses: actions/checkout@v4
       - name: Run a one-line script
